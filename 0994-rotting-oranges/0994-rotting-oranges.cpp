@@ -4,7 +4,7 @@ public:
      int n=grid.size();
      int m=grid[0].size();
      queue<pair<pair<int,int>,int>>q;
-       int vis[n][m];
+       vector<vector<int>>vis(n,vector<int>(m,0));
      for(int i=0;i<n;i++)
      {
         for(int j=0;j<m;j++)
@@ -14,10 +14,8 @@ public:
                 q.push({{i,j},0});
                 vis[i][j]=1;
             }
-            else
-            {
-                vis[i][j]=0;
-            }
+           
+           
         }
      }
 
