@@ -1,35 +1,58 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-      if(grid.empty()) return 0;
-        int m = grid.size(), n = grid[0].size(), days = 0, tot = 0, cnt = 0;
-        queue<pair<int, int>> rotten;
-        for(int i = 0; i < m; ++i){
-            for(int j = 0; j < n; ++j){
-                if(grid[i][j] != 0) tot++;
-                if(grid[i][j] == 2) rotten.push({i, j});
+     int n=grid.size();
+     int m=grid[0].size();
+     queue<pair<pair<int,int>,int>>q;
+       int vis[n][m];
+     for(int i=0;i<n;i++)
+     {
+        for(int j=0;j<m;j++)
+        {
+            if(grid[i][j]==2)
+            {
+                q.push({{i,j},0});
+                vis[i][j]=1;
+            }
+            else
+            {
+                vis[i][j]=0;
             }
         }
-        
-        int dx[4] = {0, 0, 1, -1};
-        int dy[4] = {1, -1, 0, 0};
-        
-        while(!rotten.empty()){
-            int k = rotten.size();
-            cnt += k; 
-            while(k--){
-                int x = rotten.front().first, y = rotten.front().second;
-                rotten.pop();
-                for(int i = 0; i < 4; ++i){
-                    int nx = x + dx[i], ny = y + dy[i];
-                    if(nx < 0 || ny < 0 || nx >= m || ny >= n || grid[nx][ny] != 1) continue;
-                    grid[nx][ny] = 2;
-                    rotten.push({nx, ny});
-                }
+     }
+
+     int time=0;
+     int drow[]={0,-1,1,0},dcol[]={-1,0,0,1};
+     while(!q.empty())
+     {
+        int r=q.front().first.first;
+        int c=q.front().first.second;
+        int t=q.front().second;
+         time=max(time,t);
+        q.pop();
+        for(int i=0;i<4;i++)
+        {
+            int nrow=r+drow[i];
+            int ncol=c+dcol[i];
+            if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && !vis[nrow][ncol] && grid[nrow][ncol]==1)
+            {
+                vis[nrow][ncol]=1;
+                q.push({{nrow,ncol},t+1});
+
             }
-            if(!rotten.empty()) days++;
         }
-        
-        return tot == cnt ? days : -1;  
+     }
+     for(int i=0;i<n;i++)
+     {
+        for(int j=0;j<m;j++)
+        {
+            if(grid[i][j]==1 && vis[i][j]==0)
+            {
+                return -1;
+            }
+        }
+     
     }
+    return time;
+}
 };
