@@ -8,7 +8,9 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
- ListNode* reverseLL(ListNode* head)
+class Solution {
+public:
+ListNode* reverseLL(ListNode* head)
  {
     if(head==NULL || head->next==NULL)
     {
@@ -20,8 +22,6 @@
     head->next=NULL;
     return Newhead;
  }
-class Solution {
-public:
     bool isPalindrome(ListNode* head) {
         if(head==NULL || head->next==NULL)
     {
