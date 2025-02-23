@@ -10,46 +10,40 @@
  */
 class Solution {
 public:
-ListNode* reverseLL(ListNode* head)
+ ListNode* reversell(ListNode* head)
  {
-    if(head==NULL || head->next==NULL)
+    if(head==NULL||head->next==NULL)
     {
         return head;
     }
-    ListNode* Newhead=reverseLL(head->next);
+    ListNode* newhead=reversell(head->next);
     ListNode* front=head->next;
     front->next=head;
     head->next=NULL;
-    return Newhead;
+    return newhead;
+
  }
     bool isPalindrome(ListNode* head) {
-        if(head==NULL || head->next==NULL)
-    {
-        return true;
-    }
         ListNode* slow=head;
         ListNode* fast=head;
         while(fast->next!=NULL && fast->next->next!=NULL)
         {
             slow=slow->next;
             fast=fast->next->next;
-            
         }
-        ListNode* Newhead=reverseLL(slow->next);
+        ListNode* newhead=reversell(slow->next);
         ListNode* first=head;
-        ListNode* second=Newhead;
+        ListNode* second=newhead;
         while(second!=NULL)
         {
             if(first->val!=second->val)
             {
-                reverseLL(Newhead);
-                return false;
+                newhead=reversell(newhead);
+                 return false;
             }
             first=first->next;
             second=second->next;
-
         }
-        reverseLL(Newhead);
         return true;
     }
 };
