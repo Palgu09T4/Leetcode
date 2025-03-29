@@ -1,6 +1,6 @@
 class Solution {
 public:
-bool func(int x,vector<int>& weights,int days){
+ bool func(int x,vector<int>& weights,int days){
         int c=1;
         int sum=0;
         for(int i=0;i<weights.size();i++){
